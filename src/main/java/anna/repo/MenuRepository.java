@@ -6,6 +6,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.service.ServiceRegistry;
 
+import anna.model.Item;
 import anna.model.Menu;
 
 public class MenuRepository {
@@ -35,10 +36,20 @@ public class MenuRepository {
 	}
 	
 	public Menu findMenuById(long id){
-		Session session = sessionFactory.openSession();
+		return findMenuByIdAndLoadItems(id);
+	}
+	
+	public Menu findMenuByIdAndLoadItems(long id){
+		Session session = sessionFactory.openSession(); // open
+		
 		Menu menu = session.get(Menu.class, id);
+		
+		// forces hibernate to load items lazily, with open session
+		for (Item i : menu.getItems()) 
+			System.out.println(i);
+		
 		session.close();
-		return menu;
+		return menu; // with items already loaded, despite having LAZY fetch
 	}
 	
 	public void delete(Menu menu){

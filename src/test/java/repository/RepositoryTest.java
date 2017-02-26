@@ -42,9 +42,9 @@ public class RepositoryTest {
 		m.getItems().add(i);
 		m.getItems().add(i2);
 
-		menuRepo.update(m); // check if this is needed
-		itemRepo.update(i);
-		itemRepo.update(i2);
+		menuRepo.update(m); // menu owns the relationship (unidirectional)
+//		itemRepo.update(i); // <-- this saves are not needed
+//		itemRepo.update(i2);
 
 		
 		// assert

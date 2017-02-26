@@ -23,7 +23,7 @@ public class Menu {
 	
 	private String category;
 	
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany//(fetch = FetchType.EAGER)
 	@JoinColumn
 	private Set<Item> items = new HashSet<>();
 
